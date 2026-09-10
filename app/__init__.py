@@ -1,0 +1,1 @@
+"""Test FastAPI service package."""
