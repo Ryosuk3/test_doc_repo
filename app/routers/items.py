@@ -36,3 +36,10 @@ async def create_item(payload: ItemCreate) -> Item:
 async def delete_item(item_id: int) -> None:
     if _items.pop(item_id, None) is None:
         raise HTTPException(status_code=404, detail="Item not found")
+    
+
+@router.post("", response_model=Item)
+async def update_item(item_id: int, payload: ItemCreate) -> None:
+    if _items[item_id] is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    _items[item_id]=Item(id=item_id, **payload.model_dump())
